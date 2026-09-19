@@ -1,6 +1,5 @@
 "use server";
 
-import { ObjectId } from "mongodb";
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { COOKIE, verifyToken } from "@/lib/session";
@@ -8,18 +7,23 @@ import { videosCol } from "@/lib/videos";
 
 const DAY = 24 * 60 * 60 * 1000;
 
-// Publish starts a 1-day countdown to Cloudinary deletion; un-publishing cancels it.
-export async function setPublished(id, published) {
+// Each platform is toggled separately. Once every platform is published the
+// 1-day countdown to Cloudinary deletion starts; un-publishing any one cancels it.
+export async function setPlatformPublished(slug, platform, published) {
   const token = (await cookies()).get(COOKIE)?.value;
   if (!token || !(await verifyToken(token))) throw new Error("unauthorized");
 
   const col = await videosCol();
-  const filter = { _id: new ObjectId(id), videoDeleted: { $ne: true } };
+  const video = await col.findOne({ slug, videoDeleted: { $ne: true } });
+  if (!video || !(platform in (video.platforms || {}))) throw new Error("not found");
+
+  const state = { ...(video.published || {}), [platform]: !!published };
+  const all = Object.keys(video.platforms).every((p) => state[p]);
   await col.updateOne(
-    filter,
-    published
-      ? { $set: { status: "published", publishedAt: new Date(), deleteAt: new Date(Date.now() + DAY) } }
-      : { $set: { status: "unpublished" }, $unset: { publishedAt: "", deleteAt: "" } }
+    { _id: video._id },
+    all
+      ? { $set: { published: state, status: "published", deleteAt: new Date(Date.now() + DAY) } }
+      : { $set: { published: state, status: "unpublished" }, $unset: { deleteAt: "" } }
   );
-  revalidatePath("/dashboard/dmoo-way");
+  revalidatePath("/dashboard/dmoo-way", "layout");
 }
