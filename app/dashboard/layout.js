@@ -11,6 +11,8 @@ export default function DashboardLayout({ children }) {
         <div style={{ marginTop: 16 }}>
           <Link href="/dashboard" style={link}>Dashboard</Link>
           <Link href="/dashboard/dmoo-way" style={link}>Dmoo Way</Link>
+          <Link href="/dashboard/redhat-engineer" style={link}>RedHat Engineer</Link>
+          <Link href="/dashboard/imagine-error" style={link}>Imagine Error</Link>
         </div>
         <form action={logout} style={{ marginTop: 24 }}>
           <button type="submit" style={{ padding: "6px 12px", border: "1px solid #000", background: "#fff", color: "#000", cursor: "pointer" }}>Logout</button>
