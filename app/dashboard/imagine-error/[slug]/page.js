@@ -6,6 +6,7 @@ import PlatformToggle from "../../dmoo-way/toggle";
 
 export const dynamic = "force-dynamic";
 
+const RED = "#c0392b";
 const download = (url) => url.replace("/upload/", "/upload/fl_attachment/");
 const asText = (v) => (Array.isArray(v) ? v.join(", ") : String(v));
 
@@ -16,8 +17,8 @@ export default async function VideoPage({ params }) {
 
   return (
     <>
-      <p><Link href="/dashboard/imagine-error" style={{ color: "#000" }}>← Imagine Error</Link></p>
-      <h1>{v.title}</h1>
+      <p><Link href="/dashboard/imagine-error" style={{ color: RED }}>← Imagine Error</Link></p>
+      <h1 style={{ color: RED }}>{v.title}</h1>
       {v.videoDeleted ? (
         <p>Video deleted from storage.</p>
       ) : (
@@ -38,8 +39,8 @@ export default async function VideoPage({ params }) {
         </>
       )}
       {Object.entries(v.platforms || {}).map(([platform, fields]) => (
-        <section key={platform} style={{ border: "1px solid #000", padding: 12, marginBottom: 16 }}>
-          <h2 style={{ marginTop: 0, textTransform: "capitalize" }}>{platform}</h2>
+        <section key={platform} style={{ border: `1px solid ${RED}`, padding: 12, marginBottom: 16 }}>
+          <h2 style={{ marginTop: 0, textTransform: "capitalize", color: RED }}>{platform}</h2>
           <PlatformToggle slug={v.slug} platform={platform} published={!!v.published?.[platform]} />
           {Object.entries(fields).map(([name, value]) => (
             <div key={name} style={{ margin: "10px 0" }}>

@@ -3,6 +3,7 @@ import { videosCol } from "@/lib/videos";
 
 export const dynamic = "force-dynamic";
 
+const RED = "#c0392b";
 const thumb = (url) => url.replace("/video/upload/", "/video/upload/so_1,w_480/").replace(/\.\w+$/, ".jpg");
 
 function statusOf(v) {
@@ -18,21 +19,21 @@ export default async function ImagineError() {
 
   return (
     <>
-      <h1>Imagine Error</h1>
+      <h1 style={{ color: RED }}>Imagine Error</h1>
       {videos.length === 0 && <p>No videos uploaded yet.</p>}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16 }}>
         {videos.map((v) => {
           const st = statusOf(v);
           return (
-            <Link key={v.slug} href={`/dashboard/imagine-error/${v.slug}`} style={{ border: "1px solid #000", color: "#000", textDecoration: "none", display: "block" }}>
+            <Link key={v.slug} href={`/dashboard/imagine-error/${v.slug}`} style={{ border: `1px solid ${RED}`, color: "#000", textDecoration: "none", display: "block" }}>
               {v.videoDeleted ? (
-                <div style={{ aspectRatio: "16 / 9", display: "grid", placeItems: "center", borderBottom: "1px solid #000" }}>Video deleted</div>
+                <div style={{ aspectRatio: "16 / 9", display: "grid", placeItems: "center", borderBottom: `1px solid ${RED}` }}>Video deleted</div>
               ) : (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={thumb(v.videoUrl)} alt="" style={{ width: "100%", aspectRatio: "16 / 9", objectFit: "cover", display: "block", borderBottom: "1px solid #000" }} />
+                <img src={thumb(v.videoUrl)} alt="" style={{ width: "100%", aspectRatio: "16 / 9", objectFit: "cover", display: "block", borderBottom: `1px solid ${RED}` }} />
               )}
               <div style={{ padding: 8 }}>
-                <span style={{ display: "inline-block", padding: "1px 6px", marginBottom: 6, fontSize: 12, border: "1px solid #000", background: st.solid ? "#000" : "#fff", color: st.solid ? "#fff" : "#000" }}>{st.label}</span>
+                <span style={{ display: "inline-block", padding: "1px 6px", marginBottom: 6, fontSize: 12, border: `1px solid ${RED}`, background: st.solid ? RED : "#fff", color: st.solid ? "#fff" : RED }}>{st.label}</span>
                 <br />
                 <strong>{v.title}</strong>
                 <div style={{ fontSize: 13, marginTop: 6 }}>
