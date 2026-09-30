@@ -25,5 +25,5 @@ export async function setPlatformPublished(slug, platform, published) {
       ? { $set: { published: state, status: "published", deleteAt: new Date(Date.now() + DAY) } }
       : { $set: { published: state, status: "unpublished" }, $unset: { deleteAt: "" } }
   );
-  revalidatePath("/dashboard/dmoo-way", "layout");
+  revalidatePath("/dashboard", "layout");
 }
