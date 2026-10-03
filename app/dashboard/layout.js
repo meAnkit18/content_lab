@@ -11,6 +11,7 @@ export default function DashboardLayout({ children }) {
         <div style={{ marginTop: 16 }}>
           <Link href="/dashboard" style={link}>Dashboard</Link>
           <Link href="/dashboard/dmoo-way" style={link}>Dmoo Way</Link>
+          <Link href="/dashboard/dmoo-way-long" style={link}>Dmoo Way Long</Link>
           <Link href="/dashboard/redhat-engineer" style={link}>RedHat Engineer</Link>
           <Link href="/dashboard/imagine-error" style={{ ...link, color: "#c0392b" }}>Imagine Error</Link>
         </div>
