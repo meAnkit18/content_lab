@@ -13,6 +13,8 @@ export default function DashboardLayout({ children }) {
           <Link href="/dashboard/dmoo-way" style={link}>Dmoo Way</Link>
           <Link href="/dashboard/dmoo-way-long" style={link}>Dmoo Way Long</Link>
           <Link href="/dashboard/redhat-engineer" style={link}>RedHat Engineer</Link>
+          <Link href="/dashboard/man-oops" style={link}>Man Oops</Link>
+          <Link href="/dashboard/parallel-plus" style={link}>Parallel Plus</Link>
           <Link href="/dashboard/imagine-error" style={{ ...link, color: "#c0392b" }}>Imagine Error</Link>
         </div>
         <form action={logout} style={{ marginTop: 24 }}>
